@@ -10,6 +10,22 @@
 		"LS_ADLS_CareSync_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://caresyncadlsdev.dfs.core.windows.net/"
+		},
+		"LS_KeyVault_CareSync_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kvcaresyncdev.vault.azure.net/"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ep-cool-union-be705tdy-pooler.c-9.us-east-2.aws.neon.tech"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "neondb"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "neondb_owner"
 		}
 	},
 	"variables": {
@@ -28,6 +44,49 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_KeyVault_CareSync')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Key Vault for CareSync credentials",
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('LS_KeyVault_CareSync_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_PostgreSQL_CareSync')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Neon PostgreSQL source database",
+				"annotations": [],
+				"type": "PostgreSqlV2",
+				"typeProperties": {
+					"server": "[parameters('LS_PostgreSQL_CareSync_properties_typeProperties_server')]",
+					"port": 5432,
+					"database": "[parameters('LS_PostgreSQL_CareSync_properties_typeProperties_database')]",
+					"username": "[parameters('LS_PostgreSQL_CareSync_properties_typeProperties_username')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "LS_KeyVault_CareSync",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "neon-postgres-password"
+					},
+					"sslMode": 2,
+					"authenticationType": "Basic"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_KeyVault_CareSync')]"
+			]
 		}
 	]
 }

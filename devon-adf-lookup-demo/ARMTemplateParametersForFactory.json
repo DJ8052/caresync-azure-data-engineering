@@ -7,6 +7,18 @@
 		},
 		"LS_ADLS_CareSync_properties_typeProperties_url": {
 			"value": "https://caresyncadlsdev.dfs.core.windows.net/"
+		},
+		"LS_KeyVault_CareSync_properties_typeProperties_baseUrl": {
+			"value": "https://kvcaresyncdev.vault.azure.net/"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_server": {
+			"value": "ep-cool-union-be705tdy-pooler.c-9.us-east-2.aws.neon.tech"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_database": {
+			"value": "neondb"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_username": {
+			"value": "neondb_owner"
 		}
 	}
 }

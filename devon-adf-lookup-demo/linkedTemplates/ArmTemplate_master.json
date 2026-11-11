@@ -11,6 +11,22 @@
 			"type": "string",
 			"defaultValue": "https://caresyncadlsdev.dfs.core.windows.net/"
 		},
+		"LS_KeyVault_CareSync_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kvcaresyncdev.vault.azure.net/"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ep-cool-union-be705tdy-pooler.c-9.us-east-2.aws.neon.tech"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "neondb"
+		},
+		"LS_PostgreSQL_CareSync_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "neondb_owner"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -40,6 +56,18 @@
 					},
 					"LS_ADLS_CareSync_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_CareSync_properties_typeProperties_url')]"
+					},
+					"LS_KeyVault_CareSync_properties_typeProperties_baseUrl": {
+						"value": "[parameters('LS_KeyVault_CareSync_properties_typeProperties_baseUrl')]"
+					},
+					"LS_PostgreSQL_CareSync_properties_typeProperties_server": {
+						"value": "[parameters('LS_PostgreSQL_CareSync_properties_typeProperties_server')]"
+					},
+					"LS_PostgreSQL_CareSync_properties_typeProperties_database": {
+						"value": "[parameters('LS_PostgreSQL_CareSync_properties_typeProperties_database')]"
+					},
+					"LS_PostgreSQL_CareSync_properties_typeProperties_username": {
+						"value": "[parameters('LS_PostgreSQL_CareSync_properties_typeProperties_username')]"
 					}
 				}
 			},
