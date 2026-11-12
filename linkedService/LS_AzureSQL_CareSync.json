@@ -1,0 +1,24 @@
+{
+	"name": "LS_AzureSQL_CareSync",
+	"properties": {
+		"description": "CareSync metadata and control database",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "caresync-sql-dev.database.windows.net",
+			"database": "CareSyncDB",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "caresync-sql-dev",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_KeyVault_CareSync",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "caresync-sql-password"
+			}
+		}
+	}
+}
