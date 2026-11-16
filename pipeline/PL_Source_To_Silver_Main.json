@@ -135,7 +135,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "INSERT INTO ctrl.audit_log (adf_run_id, table_id, stage, status, start_time) \nVALUES('@{pipeline().parameters.adf_run_id}',@{item().table_id},'SOURCE_TO_SILVER','IN_PROGRESS', SYSUTCDATETIME()\n);",
+											"value": "UPDATE ctrl.audit_log\nSET STATUS = 'FAILED', END_TIME = SYSUTCDATETIME()\nWHERE adf_run_id = '@{pipeline().parameters.adf_run_id}' AND table_id = @{item().table_id};",
 											"type": "Expression"
 										}
 									}
