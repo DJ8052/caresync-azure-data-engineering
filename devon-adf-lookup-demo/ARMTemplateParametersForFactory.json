@@ -8,6 +8,18 @@
 		"LS_ADLS_CareSync_properties_typeProperties_url": {
 			"value": "https://caresyncadlsdev.dfs.core.windows.net/"
 		},
+		"LS_AzureSQL_CareSync_properties_typeProperties_server": {
+			"value": "caresync-sql-dev.database.windows.net"
+		},
+		"LS_AzureSQL_CareSync_properties_typeProperties_database": {
+			"value": "CareSyncDB"
+		},
+		"LS_AzureSQL_CareSync_properties_typeProperties_userName": {
+			"value": "caresync-sql-dev"
+		},
+		"LS_Databricks_CareSync_properties_typeProperties_existingClusterId": {
+			"value": "1112-165737-kdwffque"
+		},
 		"LS_KeyVault_CareSync_properties_typeProperties_baseUrl": {
 			"value": "https://kvcaresyncdev.vault.azure.net/"
 		},
