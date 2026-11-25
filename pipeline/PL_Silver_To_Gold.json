@@ -180,6 +180,23 @@
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
+						},
+						{
+							"name": "Gold_Notebook_Failed",
+							"type": "Fail",
+							"dependsOn": [
+								{
+									"activity": "Silver_To_Gold",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"message": "Inner Pipeline Failed",
+								"errorCode": "500"
+							}
 						}
 					]
 				}
