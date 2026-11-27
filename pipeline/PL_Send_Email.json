@@ -56,7 +56,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "body_footer",
-					"value": "For any support, please reach out to\nDJJohnson@Compliance314.onmicrosoft.com\n\nRegards,\nClarity Before Dashboards™"
+					"value": "<p>For any support, please reach out to:<br>\nDJJohnson@Compliance314.onmicrosoft.com</p>\n\n<p>Regards,<br>\n<strong>Clarity Before Dashboards™</strong></p>"
 				}
 			},
 			{
