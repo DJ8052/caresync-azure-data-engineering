@@ -1,0 +1,76 @@
+{
+	"name": "PL_Send_Email",
+	"properties": {
+		"activities": [
+			{
+				"name": "Read_All_Tables_Status",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT * FROM ctrl.audit_log WHERE adf_run_id = '@{pipeline().parameters.adf_run_id}';",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Prepare_Email_Body_Header",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "body_header",
+					"value": "The ingestion and transformation process for the Caresync project has been completed and the status is below."
+				}
+			},
+			{
+				"name": "Prepare_Email_Body_Footer",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "body_header",
+					"value": "For any support, please reach out to DJJohnson@Compliance314.onmicrosoft.com"
+				}
+			}
+		],
+		"parameters": {
+			"adf_run_id": {
+				"type": "string",
+				"defaultValue": "f4c55e39-5553-446e-bb46-1eb2c8c08fe7"
+			}
+		},
+		"variables": {
+			"body_header": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
