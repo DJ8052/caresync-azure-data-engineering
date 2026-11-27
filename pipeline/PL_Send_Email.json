@@ -58,6 +58,58 @@
 					"variableName": "body_header",
 					"value": "For any support, please reach out to DJJohnson@Compliance314.onmicrosoft.com"
 				}
+			},
+			{
+				"name": "Prepare_Email_Subject",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Check_Overall_Failed_Count",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "email_subject",
+					"value": {
+						"value": "@{pipeline().globalParameters.Env} | @{if(greater(activity('Check_Overall_Failed_Count').output.firstRow.COUNT,0),'FAILED','SUCCESS')} | CARESYNC MASTER RUN",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Check_Overall_Failed_Count",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT COUNT (*) as COUNT\nFROM ctrl.audit_log \nWHERE adf_run_id = '@{pipeline().parameters.adf_run_id}'\nAND status != 'Success';",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -68,6 +120,9 @@
 		},
 		"variables": {
 			"body_header": {
+				"type": "String"
+			},
+			"email_subject": {
 				"type": "String"
 			}
 		},
