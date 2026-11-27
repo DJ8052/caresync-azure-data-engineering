@@ -55,8 +55,8 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "body_header",
-					"value": "For any support, please reach out to DJJohnson@Compliance314.onmicrosoft.com"
+					"variableName": "body_footer",
+					"value": "For any support reach out to DJJohnson@Compliance314.onmicrosoft.com"
 				}
 			},
 			{
@@ -110,6 +110,48 @@
 						"type": "DatasetReference"
 					}
 				}
+			},
+			{
+				"name": "Prepare_Logic_Apps_Body",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Prepare_Email_Body_Header",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Prepare_Email_Body_Footer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Prepare_Email_Subject",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Read_All_Tables_Status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "logic_apps_body",
+					"value": {
+						"value": "{\n    \"subject\": \"@{variables('email_subject')}\",\n    \"email_recipients\": \"@{pipeline().globalParameters.Email_Receiptient}\",\n    \"body_header\": \"@{variables('body_header')}\",\n    \"body_footer\": \"@{variables('body_footer')}\",\n    \"status_table\": @{activity('Read_All_Tables_Status').output.value}\n}",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -123,6 +165,12 @@
 				"type": "String"
 			},
 			"email_subject": {
+				"type": "String"
+			},
+			"logic_apps_body": {
+				"type": "String"
+			},
+			"body_footer": {
 				"type": "String"
 			}
 		},
