@@ -5,6 +5,10 @@
 			"Email_Receiptient": {
 				"type": "string",
 				"value": "DJJohnson@Compliance314.onmicrosoft.com"
+			},
+			"Env": {
+				"type": "string",
+				"value": "DEV"
 			}
 		}
 	},
