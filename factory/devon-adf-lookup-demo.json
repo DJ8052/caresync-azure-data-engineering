@@ -1,0 +1,12 @@
+{
+	"name": "devon-adf-lookup-demo",
+	"properties": {
+		"globalParameters": {
+			"Email_Receiptient": {
+				"type": "string",
+				"value": "DJJohnson@Compliance314.onmicrosoft.com"
+			}
+		}
+	},
+	"location": "centralus"
+}
