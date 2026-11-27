@@ -1128,7 +1128,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"variableName": "body_footer",
-							"value": "For any support, please reach out to\nDJJohnson@Compliance314.onmicrosoft.com\n\nRegards,\nClarity Before Dashboards™"
+							"value": "<p>For any support, please reach out to:<br>\nDJJohnson@Compliance314.onmicrosoft.com</p>\n\n<p>Regards,<br>\n<strong>Clarity Before Dashboards™</strong></p>"
 						}
 					},
 					{
@@ -1576,6 +1576,35 @@
 								}
 							}
 						}
+					},
+					{
+						"name": "Send_Email",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Silver_To_Gold",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PL_Send_Email",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"adf_run_id": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							}
+						}
 					}
 				],
 				"policy": {
@@ -1585,7 +1614,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_Source_To_Silver_Main')]",
-				"[concat(variables('factoryId'), '/pipelines/PL_Silver_To_Gold')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_Silver_To_Gold')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_Send_Email')]"
 			]
 		}
 	]
