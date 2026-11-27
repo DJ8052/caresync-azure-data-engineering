@@ -180,6 +180,10 @@
 					"url": {
 						"value": "@pipeline().globalParameters.Logic_Apps_URL",
 						"type": "Expression"
+					},
+					"body": {
+						"value": "@variables('logic_apps_body')",
+						"type": "Expression"
 					}
 				}
 			}
